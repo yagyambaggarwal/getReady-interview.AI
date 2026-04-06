@@ -7,6 +7,8 @@ export const registerUser = async (req, res) => {
     // Getting user details from frontend
     const {username, password, email} = req.body;
     console.log("Username", username);
+    console.log("Password", password);
+    console.log("Email", email);
 
     // Validating user details
     if(!username || !password || !email){
@@ -68,7 +70,7 @@ export const registerUser = async (req, res) => {
 
 }
 
-
+// Login User
 export const loginUser = async (req, res) => {
     // Getting password and username or email
     const {email, password} = req.body;
@@ -109,3 +111,21 @@ export const loginUser = async (req, res) => {
     })
 }
 
+// Logout User
+export const logoutUser = async (req, res) => {
+    console.log("User logged out successfully")
+
+    return res.status(200).clearCookie("token").json({message : "User Logged Out!"})
+}
+
+// Get User
+export const getUser = async(req, res) => {
+    let user = req.user;
+
+    user = await User.findById(user._id).select("-password -createdAt -updatedAt -__v");
+
+    return res.status(200).json({
+        message : "Here's the user's profile.",
+        data : user
+    })
+}
