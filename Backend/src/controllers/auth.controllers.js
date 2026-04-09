@@ -75,6 +75,9 @@ export const loginUser = async (req, res) => {
     // Getting password and username or email
     const {email, password} = req.body;
     
+    
+    console.log("Email: ", email , " Password: ", password)
+
     if(!email || !password){
         return res.status(400).json({message : "Please enter password and email."})
     }

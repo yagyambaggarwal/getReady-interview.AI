@@ -9,8 +9,11 @@ app.use(express.urlencoded());
 app.use(cookieParser())
 app.use(cors(
     {
-        origin : process.env.CORS_ORIGIN,
-        credentials : true
+        // origin : process.env.CORS_ORIGIN,
+        // credentials : true
+        origin: 'http://localhost:5173',  // Your frontend URL
+        credentials: true,                 // Allow credentials (cookies)
+        optionsSuccessStatus: 200
     }
 ))
 
