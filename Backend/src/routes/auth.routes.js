@@ -21,4 +21,4 @@ export const authRouter = Router()
 authRouter.route("/register").post(upload.none(), registerUser);
 authRouter.route("/login").post(upload.none(), loginUser);
 authRouter.route("/logout").get(jwtVerified, logoutUser);
-authRouter.route("/get-me").get(jwtVerified, getUser)
+authRouter.route("/get-me").get(jwtVerified, getUser);

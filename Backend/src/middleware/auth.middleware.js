@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export const jwtVerified = async (req, res, next) => {
+    
     try {
         const secretToken = req.cookies.token;
     

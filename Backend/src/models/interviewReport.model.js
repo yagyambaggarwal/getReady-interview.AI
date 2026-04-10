@@ -98,7 +98,12 @@ const interviewReportSchema = new Schema(
         technicalQuestion : [technicalQuestionSchema],
         behaviouralQuestion : [behavioralQuestionSchema],
         skillGap : [skillGapSchema],
-        preprationPlan : [preprationPlanSchema]
+        preprationPlan : [preprationPlanSchema],
+
+        user : {
+            type : Schema.Types.ObjectId,
+            ref : "users"
+        }
 
     },
     {
@@ -106,4 +111,4 @@ const interviewReportSchema = new Schema(
     }
 );
 
-export const Report = new mongoose("Report", interviewReportSchema);
+export const Report = model("Report", interviewReportSchema);
