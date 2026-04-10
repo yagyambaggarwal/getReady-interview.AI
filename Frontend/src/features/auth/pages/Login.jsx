@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "../auth.form.scss"
-import { useNavigate, Link } from "react-router";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 
 const Login = () => {
 
-    const {loading, handleLogin} = useAuth()
+    const { loading, handleLogin } = useAuth()
     const navigate = useNavigate()
 
 
@@ -18,18 +18,41 @@ const Login = () => {
     //     handleLogin({email, password})
     // }
 
-    const handleSubmit = async (e) => {
-    e.preventDefault()
-    console.log("Login attempt with:", {email, password});  // Add this debug line
-    if (!email || !password) {
-        console.error("Email or password is empty!");
-        return;
-    }
-    await handleLogin({email, password})
-    navigate("/")
-}
+    //     const handleSubmit = async (e) => {
+    //     e.preventDefault()
+    //     console.log("Login attempt with:", {email, password});  // Add this debug line
+    //     if (!email || !password) {
+    //         console.error("Email or password is empty!");
+    //         return;
+    //     }
+    //     await handleLogin({email, password})
+    //     navigate("/")
+    // }
 
-    if(loading){
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        console.log("Login attempt with:", { email, password });
+
+        if (!email || !password) {
+            console.error("Email or password is empty!");
+            return;
+        }
+
+        const user = await handleLogin({ email, password });
+
+        if (user) {
+            navigate("/"); // ✅ only navigate if login succeeded
+        } else {
+            console.error("Login failed");
+        }
+    };
+
+
+
+
+    if (loading) {
         return (
             <main>
                 <h1>
@@ -39,7 +62,7 @@ const Login = () => {
         )
     }
 
-    return(
+    return (
         <main>
             <div className="form-container">
                 <h1>Login</h1>
@@ -48,16 +71,16 @@ const Login = () => {
 
                     <div className="input-group">
                         <label htmlFor="email">Email</label>
-                        <input 
-                            onChange={(e) => {setEmail(e.target.value)}}
-                            type="email" id="email" name="email" placeholder="Enter email adrs"/>
+                        <input
+                            onChange={(e) => { setEmail(e.target.value) }}
+                            type="email" id="email" name="email" placeholder="Enter email adrs" />
                     </div>
 
                     <div className="input-group">
                         <label htmlFor="password">Password</label>
                         <input
-                            onChange={(e) => {setPassword(e.target.value)}}
-                            type="password" id="password" name="password" placeholder=".........."/>
+                            onChange={(e) => { setPassword(e.target.value) }}
+                            type="password" id="password" name="password" placeholder=".........." />
                     </div>
 
                     <button className="button primary-button">Login</button>

@@ -75,7 +75,6 @@ export const loginUser = async (req, res) => {
     // Getting password and username or email
     const {email, password} = req.body;
     
-    
     console.log("Email: ", email , " Password: ", password)
 
     if(!email || !password){
@@ -110,7 +109,12 @@ export const loginUser = async (req, res) => {
     )
 
     return res.status(200).cookie("token", secretToken).json({
-        message : "User logged in successfully."
+        message : "User logged in successfully.",
+        user : {
+            id : user._id,
+            username : user.username,
+            email : user.email
+        }
     })
 }
 
